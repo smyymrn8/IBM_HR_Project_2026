@@ -87,3 +87,13 @@ SELECT
 
 FROM Employees;
 GO
+
+
+-- Kontrol edelim birini: 
+SELECT 
+    JobLevel,
+    JobLevel_Label,
+    COUNT(*) AS Frequency
+FROM vw_HR_Attrition_Labeled
+GROUP BY JobLevel, JobLevel_Label
+ORDER BY JobLevel;
