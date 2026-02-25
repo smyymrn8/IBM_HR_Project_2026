@@ -2,6 +2,8 @@
 USE IBM_HR_DB;
 GO
 
+-- DROP TABLE IF EXISTS Employees;
+
 CREATE TABLE Employees (
     EmployeeNumber INT PRIMARY KEY,
     Age INT,
@@ -29,7 +31,7 @@ CREATE TABLE Employees (
     PercentSalaryHike INT,
     PerformanceRating INT,
     RelationshipSatisfaction INT,
-    StandartHours INT,
+    StandardHours INT,
     StockOptionLevel INT,
     TotalWorkingYears INT,
     TrainingTimesLastYear INT,
