@@ -97,3 +97,4 @@ SELECT
 FROM vw_HR_Attrition_Labeled
 GROUP BY JobLevel, JobLevel_Label
 ORDER BY JobLevel;
+
