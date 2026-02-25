@@ -1,7 +1,9 @@
+# Docker bağlantım için -Sümeyye Emren 
+
 import pandas as pd
 from sqlalchemy import create_engine
 
-# CSV dosyanın yolu (proje klasöründe "data" klasörü varsa oraya koy)
+# CSV dosyanın yolu 
 csv_path = "/Users/smyymrn/Downloads/WA_Fn-UseC_-HR-Employee-Attrition.csv"
 
 # CSV oku
