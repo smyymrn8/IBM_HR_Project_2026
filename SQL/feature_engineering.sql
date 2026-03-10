@@ -1,8 +1,5 @@
 
 --yeni değişkenler üretirken tablo yapısı korunarak viewlar ile eklenebilir.
-USE TBM_HR_DB;
-GO
-
 -- 6. haftada belirtilen yaş grupları, gelir seviyeleri ve kıdem süreleri sql sorguları ile sınıflandırılacak.
 -- Bu sayede çalışanların ayrılmasını etkileyen faktörler daha iyi analiz edilebilir ve bu faktörlere göre stratejiler geliştirilebilir hale gelecek.
 
@@ -49,4 +46,5 @@ SELECT
     COUNT(*) AS EmployeeCount
 FROM vw_HR_Feature_Engineering
 GROUP BY Age_Group
+
 ORDER BY EmployeeCount DESC;
