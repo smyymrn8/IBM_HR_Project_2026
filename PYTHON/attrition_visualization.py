@@ -1,13 +1,11 @@
-
 # bu dosyada tekli değişkenlerin uygun grafikler ile görselleştirilmesi ve korelayson matrixinin gösterimi için kodlar bulunmaktadır.
 
-
-import numpy as np
+import numpy as np # sayısal işlemler için
 import pandas as pd   # verileri çekmek için
 import matplotlib.pyplot as plt  # görselleştirme için
 import plotly.express as px # görselleştirme için
 
-# ikili değişkenlerin görselleştirilmesi için
+# ikili değişkenlerin görselleştirilmesi için(sonraki aşamalarda)
 import plotly.graph_objects as go 
 
 # matrix kısmında
@@ -16,7 +14,7 @@ import matplotlib.pyplot as plt
 
 
 # veri setimiz temiz olduğundan dolayı (kontroller yapıldı) csv dosyası üzerinden okuyarak görselleştirmeyi yaptık.
-df = pd.read_csv(r"C:\Users\cakir\OneDrive\Desktop\Bitirme projesi ile ilgili\ik_veriler.csv")
+df = pd.read_csv("../DATA/WA_Fn-UseC_-HR-Employee-Attrition.csv")
 print(df.head())  # veri setinin ilk 5 satırını kontorl etmek için
 
 
@@ -202,8 +200,7 @@ fig.update_layout(
 
 fig.show()
 
-# buraya kadar tekli değişkenlerin attrition ile ilişkisini incelemiş olduk. 
-
+# buraya kadar tekli değişkenlerin attrition ile ilişkisinin grafikler ile gösterimi tamamlandı. 
 
 # Her değişkenin yalnızca attrition ile ilişkisini görmek için korelasyon matrixini uyguluyoruz.
 # korelasyonda sayısal veya binary değişkenler üzerinden gidilir. 
