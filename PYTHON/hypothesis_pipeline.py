@@ -26,20 +26,20 @@ def load_data():
 # HYPOTHESIS SEGMENTS (PYTHON ENGINEERING)
 def create_segments(df):
 
-    # H1: Overtime yapan ve düşük iş memnuniyeti olan çalışanlar daha yüksek tükenmişlik riski taşır. 
+    # H1: Overtime yapan ve düşük iş memnuniyeti olan çalışanlar daha yüksek tükenmişlik(burnout) riski taşır. 
     df["H1_Burnout"] = np.where(
         (df["OverTime"] == "Yes") & (df["JobSatisfaction"] <= 2),
         "Risk", "Other"
     )
 
     # H2: Overtime yapan ve düşük yaşam dengesi memnuniyeti olan çalışanlar daha yüksek iş-yaşam dengesi riski taşır.
-    df["H2_WorkLife"] = np.where(
+    df["H2_OverTime_WorkLife"] = np.where(
         (df["OverTime"] == "Yes") & (df["WorkLifeBalance"] <= 2),
         "Risk", "Other"
     )
 
     # H3: Sık seyahat eden ve düşük iş-yaşam dengesi memnuniyeti olan çalışanlar daha yüksek seyahat stresi riski taşır. 
-    df["H3_Travel"] = np.where(
+    df["H3_Travel_WorkLife"] = np.where(
         (df["BusinessTravel"] == "Travel_Frequently") &
         (df["WorkLifeBalance"] <= 2),
         "Risk", "Other"
@@ -53,7 +53,7 @@ def create_segments(df):
     )
 
     # H5(satisfaction index): İş memnuniyeti, ortam memnuniyeti ve yaşam dengesi memnuniyetinin ortalaması. 2.5'in altı düşük memnuniyet olarak kabul edildi. 
-    df["H5"] = np.where(
+    df["H5_satisfaction_index"] = np.where(
         df["satisfaction_index"] < 2.5, "Low", "High")
 
     # H6: Düşük gelir seviyesine sahip ve yeni çalışan olan bireyler daha yüksek finansal stres riski taşır. 
@@ -71,20 +71,20 @@ def create_segments(df):
     )
 
     # H8: Çok sayıda şirkette çalışmış ve düşük iş memnuniyeti olan çalışanlar daha yüksek iş değiştirme riski taşır. 
-    df["H8_Companies"] = np.where(
+    df["H8_Companies_JobSatisfaction"] = np.where(
         (df["company_count_group"] == "Many") &
         (df["JobSatisfaction"] <= 2),
         "Risk", "Other"
     )
 
     # H9: Geliri tecrübesine oranla düşük olan çalışanlar daha yüksek finansal stres riski taşır. 
-    df["H9"] = np.where(
+    df["H9_Income_Experience"] = np.where(
         df["income_per_experience"] < df["income_per_experience"].median(),
         "Low", "High"
     )
 
     # H10: Şirkette kısa süredir çalışan ve düşük iş memnuniyeti olan bireyler daha yüksek risk taşır. 
-    df["H10_Tenure"] = np.where(
+    df["H10_Tenure_JobSatisfaction"] = np.where(
         (df["tenure_ratio"] < 0.3) &
         (df["JobSatisfaction"] <= 2),
         "Risk", "Other"
@@ -99,7 +99,7 @@ def create_segments(df):
     )
 
     # H12: Şirketteki toplam tecrübesine göre kısa süredir çalışan bireyler daha yüksek risk taşır. 
-    df["H12"] = np.where(
+    df["H12_Tenure_Companies"] = np.where(
         df["tenure_ratio"] < 0.3, "Low", "High")
 
     # H13: Düşük performans değerlendirmesi alan ve düşük iş memnuniyeti olan çalışanlar daha yüksek risk taşır. 
@@ -110,27 +110,27 @@ def create_segments(df):
     )
 
     # H14: Düşük seviyede hisse senedi opsiyonuna sahip ve düşük iş seviyesinde çalışanlar daha yüksek risk taşır. 
-    df["H14"] = np.where(
+    df["H14_StockOption_JobLevel"] = np.where(
         (df["StockOptionLevel"] <= 1) &
         (df["JobLevel"] <= 2),
         "Risk", "Other"
     )
 
     # H15: Eğitim alanı ile iş rolü arasında uyumsuzluk olan çalışanlar daha yüksek risk taşır. 
-    df["H15"] = np.where(
+    df["H15_Education_JobRole"] = np.where(
         df["EducationField"] != df["JobRole"],
         "Mismatch", "Match"
     )
 
     # H16: Kısa eğitim süresi ve düşük iş katılımı olan çalışanlar daha yüksek risk taşır. 
-    df["H16_Training"] = np.where(
+    df["H16_Training_JobInvolvement"] = np.where(
         (df["training_group"] == "Low") &
         (df["JobInvolvement"] <= 2),
         "Risk", "Other"
     )
 
     # H17: Çok sayıda şirkette çalışmış ve yeni çalışan olan bireyler daha yüksek iş değiştirme riski taşır. 
-    df["H17_Hopping"] = np.where(
+    df["H17_JobHopping"] = np.where(
         (df["company_count_group"] == "Many") &
         (df["tenure_group"] == "New Employee"),
         "Risk", "Other"
@@ -145,7 +145,7 @@ def create_segments(df):
     )
 
     # Geliri tecrübesine oranla düşük olan çalışanlar daha yüksek finansal stres riski taşır. 
-    df["salary_segment"] = np.where(
+    df["salary_segment_risk"] = np.where(
         df["salary_gap"] < 0,
         "Underpaid", "Fair"
     )
@@ -188,11 +188,11 @@ def get_features():
     # Bu listeler, oluşturulan segmentler ve diğer önemli özellikler dahil olmak üzere, hipotez testlerinde kullanılacak kategorik ve sayısal özellikleri tanımlar. 
 
     categorical = [
-        "H1_Burnout","H2_WorkLife","H3_Travel","H4_Satisfaction",
-        "H5","H6_Income_Tenure","H7_Involvement","H8_Companies",
-        "H9","H10_Tenure","H11_3var","H12","H13_Performance",
-        "H14","H15","H16_Training","H17_Hopping",
-        "burnout_risk","salary_segment","early_career_risk",
+        "H1_Burnout","H2_OverTime_WorkLife","H3_Travel_WorkLife","H4_Satisfaction",
+        "H5_satisfaction_index","H6_Income_Tenure","H7_Involvement","H8_Companies_JobSatisfaction",
+        "H9_Income_Experience","H10_Tenure_JobSatisfaction","H11_3var","H12_Tenure_Companies","H13_Performance",
+        "H14_StockOption_JobLevel","H15_Education_JobRole","H16_Training_JobInvolvement","H17_JobHopping",
+        "burnout_risk","salary_segment_risk","early_career_risk",
         "promotion_risk","commute_risk","composite_risk"
     ]
 
