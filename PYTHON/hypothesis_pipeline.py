@@ -1,7 +1,3 @@
-# ============================================================
-# HYPOTHESIS PIPELINE 
-# ============================================================
-
 import pandas as pd
 import numpy as np
 from sqlalchemy import create_engine
@@ -10,8 +6,7 @@ from statsmodels.stats.multitest import multipletests
 
 
 # ============================================================
-# 1) LOAD DATA (SQL + CSV MERGE)
-# ============================================================
+# LOAD DATA FROM SQL SERVER DATABASE (ASSUMING PRE-ENGINEERED VIEW) 
 def load_data():
 
     engine = create_engine(
@@ -28,8 +23,7 @@ def load_data():
 
 
 # ============================================================
-# 2) HYPOTHESIS SEGMENTS (PYTHON ENGINEERING)
-# ============================================================
+# HYPOTHESIS SEGMENTS (PYTHON ENGINEERING)
 def create_segments(df):
 
     df["H1_Burnout"] = np.where(
@@ -166,8 +160,7 @@ def create_segments(df):
 
 
 # ============================================================
-# 3) HYPOTHESIS LIST (23 TOTAL)
-# ============================================================
+# HYPOTHESIS LIST (23 TOTAL)
 def get_features():
 
     categorical = [
@@ -190,8 +183,7 @@ def get_features():
 
 
 # ============================================================
-# 4) TEST FUNCTIONS (Chi-Square for categorical, Mann-Whitney for numeric) 
-# ============================================================
+# TEST FUNCTIONS (Chi-Square for categorical, Mann-Whitney for numeric) 
 def chi_square(df, col):
 
     temp = df[[col, "Attrition"]].dropna()
@@ -243,8 +235,7 @@ def mann_whitney(df, col):
 
 
 # ============================================================
-# 5) PIPELINE EXECUTION
-# ============================================================
+# PIPELINE EXECUTION
 def run():
 
     df = load_data()
@@ -254,7 +245,7 @@ def run():
 
     results = []
 
-    # --- chi-square ---
+    # CHI-SQUARE TESTS FOR CATEGORICAL FEATURES 
     for col in categorical:
 
         if col not in df.columns:
@@ -275,7 +266,7 @@ def run():
             "Assumption": assumption
         })
 
-    # --- mann-whitney ---
+    # MANN-WHITNEY TESTS FOR NUMERIC FEATURES 
     for col in numeric:
 
         if col not in df.columns:
@@ -309,8 +300,7 @@ def run():
 
 
 # ============================================================
-# 6) SCORING + TOP10 EXTRACTION 
-# ============================================================
+# SCORING + TOP 10 EXTRACTION 
 def score(df):
 
     reject, p_adj, _, _ = multipletests(df["p_value"], method="fdr_bh")
@@ -344,8 +334,7 @@ def score(df):
 
 
 # ============================================================
-# 7) INTERPRETATION 
-# ============================================================
+# INTERPRETATION 
 def add_interpretation(df):
 
     df = df.copy() 
@@ -398,8 +387,7 @@ Interpretation: numeric feature differs between Attrition groups.
 
 
 # ============================================================
-# 7) MAIN
-# ============================================================
+# MAIN
 if __name__ == "__main__":
 
     df = run()
