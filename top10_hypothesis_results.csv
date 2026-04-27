@@ -1,0 +1,53 @@
+Feature,Test,Stat,p_value,Effect,Assumption,Median_1,Median_0,Direction,p_adj,significant,Score,Interpretation
+early_career_risk,Chi-Square,85.88658022499403,1.9055758576603257e-20,0.2417152147693983,OK,,,,4.645429016227257e-19,True,6,"
+                Significant relationship detected.
+                Effect size (Cramer's V): 0.242 → moderate association.
+                Risk pattern: category differences exist in Attrition distribution.
+                "
+H6_Income_Tenure,Chi-Square,84.85927499050729,3.203744149122246e-20,0.24026526580578816,OK,,,,4.645429016227257e-19,True,6,"
+                Significant relationship detected.
+                Effect size (Cramer's V): 0.240 → moderate association.
+                Risk pattern: category differences exist in Attrition distribution.
+                "
+TotalWorkingYears,Mann-Whitney,100567.0,2.3995693647989518e-14,0.311705866450392,,7.0,10.0,Attrition=0 higher,2.1393524150344327e-13,True,5,"
+                Significant difference detected.
+                Effect size (rank-biserial r): 0.312 → strong effect.
+                Direction: Attrition=0 higher.
+                Interpretation: numeric feature differs between Attrition groups.
+                "
+MonthlyIncome,Mann-Whitney,100620.5,2.9508309172888725e-14,0.3113397052231017,,3202.0,5204.0,Attrition=0 higher,2.1393524150344327e-13,True,5,"
+                Significant difference detected.
+                Effect size (rank-biserial r): 0.311 → strong effect.
+                Direction: Attrition=0 higher.
+                Interpretation: numeric feature differs between Attrition groups.
+                "
+H13_Performance,Chi-Square,8.281727295351866,0.004004601608496673,0.07505883087336292,OK,,,,0.007258340415400221,True,4,"
+                Significant relationship detected.
+                Effect size (Cramer's V): 0.075 → weak association.
+                Risk pattern: category differences exist in Attrition distribution.
+                "
+salary_segment_risk,Chi-Square,7.11163677827391,0.007658515036014261,0.06955464145896845,OK,,,,0.013064525649671388,True,4,"
+                Significant relationship detected.
+                Effect size (Cramer's V): 0.070 → weak association.
+                Risk pattern: category differences exist in Attrition distribution.
+                "
+H4_Satisfaction,Chi-Square,21.39024537828791,3.746725794864467e-06,0.12062830236792958,OK,,,,1.0865504805106953e-05,True,4,"
+                Significant relationship detected.
+                Effect size (Cramer's V): 0.121 → weak association.
+                Risk pattern: category differences exist in Attrition distribution.
+                "
+H16_Training_JobInvolvement,Chi-Square,8.422113942183454,0.0037068456178789926,0.07569233258639674,OK,,,,0.0071665681945660515,True,4,"
+                Significant relationship detected.
+                Effect size (Cramer's V): 0.076 → weak association.
+                Risk pattern: category differences exist in Attrition distribution.
+                "
+H14_StockOption_JobLevel,Chi-Square,20.44918955907383,6.123548091699952e-06,0.11794495879643352,OK,,,,1.6143899514481694e-05,True,4,"
+                Significant relationship detected.
+                Effect size (Cramer's V): 0.118 → weak association.
+                Risk pattern: category differences exist in Attrition distribution.
+                "
+H3_Travel_WorkLife,Chi-Square,5.9617699934205,0.014619357407911024,0.06368379578718818,OK,,,,0.02355340915718998,True,4,"
+                Significant relationship detected.
+                Effect size (Cramer's V): 0.064 → weak association.
+                Risk pattern: category differences exist in Attrition distribution.
+                "
