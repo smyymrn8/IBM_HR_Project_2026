@@ -7,7 +7,7 @@
 USE IBM_HR_DB;
 GO
 
-CREATE VIEW vw_HR_Attrition_Labeled AS
+CREATE OR ALTER VIEW vw_HR_Attrition_Labeled AS
 SELECT 
     *,
     -- Education
