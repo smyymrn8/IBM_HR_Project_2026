@@ -3,7 +3,7 @@ GO
 
 -- Feature engineering için bir görünüm(view) oluşturma: vw_HR_Feature_Engineering
 -- Bu view, Employees tablosundaki verilerden yeni özellikler (features) türetmek için çeşitli hesaplamalar ve kategorik dönüşümler içerir.
-CREATE VIEW vw_HR_Feature_Engineering AS
+CREATE OR ALTER VIEW vw_HR_Feature_Engineering AS
 SELECT
     *,
     
@@ -67,7 +67,26 @@ SELECT
         WHEN Age < 30 AND YearsAtCompany < 3 THEN 'Early Career'
         WHEN Age BETWEEN 30 AND 40 THEN 'Mid Career'
         ELSE 'Senior Career'
-    END AS career_stage
+    END AS career_stage,
+
+    -- Training group: Çalışanın son yıl içinde aldığı eğitim sayısına göre düşük ve yüksek olarak kategorize eder. (Skill development için) 
+    CASE
+        WHEN TrainingTimesLastYear <= 2 THEN 'Low'
+        ELSE 'High'
+    END AS training_group,
+
+    -- Company count group: Çalışanın daha önce kaç şirkette çalıştığını, az ve çok olarak kategorize eder. (Career stability için) 
+    CASE
+        WHEN NumCompaniesWorked <= 2 THEN 'Few'
+        ELSE 'Many'
+    END AS company_count_group,
+
+    -- Distance group: Evden işe gidip gelme mesafesini, yakın, orta ve uzak olarak kategorize eder. (Commute stress için)
+    CASE
+        WHEN DistanceFromHome <= 5 THEN 'Near'
+        WHEN DistanceFromHome <= 15 THEN 'Medium'
+        ELSE 'Far'
+    END AS distance_group
 
 FROM Employees;
 GO
