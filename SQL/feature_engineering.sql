@@ -3,7 +3,7 @@ GO
 
 -- Feature engineering için bir görünüm(view) oluşturma: vw_HR_Feature_Engineering
 -- Bu view, Employees tablosundaki verilerden yeni özellikler (features) türetmek için çeşitli hesaplamalar ve kategorik dönüşümler içerir.
-CREATE OR ALTER VIEW vw_HR_Feature_Engineering AS
+CREATE OR ALTER VIEW dbo.vw_HR_Feature_Engineering AS
 SELECT
     *,
     
@@ -97,7 +97,7 @@ GO
 SELECT 
     Age_Group,
     COUNT(*) AS EmployeeCount
-FROM vw_HR_Feature_Engineering
+FROM dbo.vw_HR_Feature_Engineering
 GROUP BY Age_Group
 
 ORDER BY EmployeeCount DESC;
