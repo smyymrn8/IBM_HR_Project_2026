@@ -1,0 +1,12 @@
+﻿Variable,Yes_Count,No_Count,Yes_Mean,No_Mean,Yes_Median,No_Median,Yes_STD,No_STD,U_Statistic,p_value,p_adj,Significant_after_FDR,Median_Comparison
+TotalWorkingYears,237,1233,8.2447,11.8629,7.0,10.0,7.1692,7.7607,100567.0,2.400e-14,1.623e-13,True,Attrition=0 grubunda daha yüksek
+MonthlyIncome,237,1233,4787.0928,6832.7397,3202.0,5204.0,3640.2104,4818.208,100620.5,2.951e-14,1.623e-13,True,Attrition=0 grubunda daha yüksek
+YearsAtCompany,237,1233,5.1308,7.369,3.0,6.0,5.95,6.0963,102582.0,2.916e-13,1.069e-12,True,Attrition=0 grubunda daha yüksek
+YearsInCurrentRole,237,1233,2.903,4.4842,2.0,3.0,3.1748,3.6494,105214.0,4.430e-12,1.218e-11,True,Attrition=0 grubunda daha yüksek
+YearsWithCurrManager,237,1233,2.8523,4.3674,2.0,3.0,3.1433,3.5941,106361.5,1.807e-11,3.975e-11,True,Attrition=0 grubunda daha yüksek
+Age,237,1233,33.6076,37.5612,32.0,36.0,9.6893,8.8884,106859.0,5.304e-11,9.725e-11,True,Attrition=0 grubunda daha yüksek
+DistanceFromHome,237,1233,10.6329,8.9157,9.0,7.0,8.4525,8.0126,164225.5,2.387e-03,3.751e-03,True,Attrition=1 grubunda daha yüksek
+YearsSinceLastPromotion,237,1233,1.9451,2.2344,1.0,1.0,3.1531,3.2348,134374.0,4.118e-02,5.662e-02,False,Medyanlar eşit
+TrainingTimesLastYear,237,1233,2.6245,2.8329,2.0,3.0,1.2548,1.2936,134785.5,4.730e-02,5.781e-02,False,Attrition=0 grubunda daha yüksek
+NumCompaniesWorked,237,1233,2.9409,2.6456,1.0,2.0,2.6785,2.4601,152929.5,2.424e-01,2.666e-01,False,Attrition=0 grubunda daha yüksek
+PercentSalaryHike,237,1233,15.097,15.2311,14.0,14.0,3.7703,3.6395,140726.5,3.655e-01,3.655e-01,False,Medyanlar eşit

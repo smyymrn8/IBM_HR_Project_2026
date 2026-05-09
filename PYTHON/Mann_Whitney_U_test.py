@@ -154,3 +154,15 @@ print(
 # )
 
 # print("\nSonuçlar masaüstüne 'mann_whitney_results.csv' olarak kaydedildi.")
+
+# ---------------------------------------------------
+# 10) CSV OLARAK KAYDET (DİNAMİK YOL)
+# ---------------------------------------------------
+# Kayıt yapılacak klasörü, kodun bulunduğu yerin bir üst dizini (proje ana dizini) olarak belirliyoruz
+output_path = current_dir.parent / "mann_whitney_results.csv"
+
+# Veriyi kaydet
+results_df.to_csv(output_path, index=False, encoding="utf-8-sig")
+
+print(f"\nSonuçlar proje ana dizinine başarıyla kaydedildi: {output_path}")
+

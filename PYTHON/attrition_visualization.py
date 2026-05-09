@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 #df = pd.read_csv("../DATA/WA_Fn-UseC_-HR-Employee-Attrition.csv")
 #print(df.head())  # veri setinin ilk 5 satırını kontorl etmek için
 
-# ----------------------
+# Proje yapısına uygun dinamik yol ------------------------------------------------------
 from pathlib import Path
 
 # 1. Mevcut dosyanın (attrition_visualization.py) konumunu bul
@@ -32,7 +32,7 @@ df = pd.read_csv(csv_path)
 
 print(f"Dosya şuradan başarıyla yüklendi: {csv_path}")
 print(df.head())
-# ----------------------
+# ---------------------------------------------------------------------------------------
 
 # kategorik, sayısal değişkenler için attrition oranlarını göstermek ve kod tekrarını azaltmak amacıyla fonksiyon tanımlanması
 def plot_categorical_attrition(dataframe, column, title):
@@ -222,7 +222,7 @@ fig.show()
 
 # Attrition için güvenli dönüşüm
 if df["Attrition"].dtype == 'object':
-    df["Attrition"] = df["Attrition"].map({"Yes": 1, "No": 0})
+    df["AttritionBinary"] = df["Attrition"].map({"Yes": 1, "No": 0})
 
 # OverTime için güvenli dönüşüm
 if df["OverTime"].dtype == 'object':

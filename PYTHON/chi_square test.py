@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 from scipy.stats import chi2_contingency
 from statsmodels.stats.multitest import multipletests
-import pyodbc # oluşturduğumuz 3 kategorik değişken csv dosyasında değildi, tekrar oluşturmamak için sql ortamından çekmeye karar verdik. 
 import platform
 from sqlalchemy import create_engine
 
@@ -17,6 +16,7 @@ try:
         
     else:  # WINDOWS
         # pyodbc ve Trusted Connection kullanır
+        import pyodbc   # oluşturduğumuz 3 kategorik değişken csv dosyasında değildi, tekrar oluşturmamak için sql ortamından çekmeye karar verdik. 
         conn_str = (
             "DRIVER={ODBC Driver 17 for SQL Server};"
             "SERVER=localhost;"
@@ -26,7 +26,7 @@ try:
         conn = pyodbc.connect(conn_str)
         print("Windows üzerinden pyodbc (Trusted Connection) ile bağlanıldı.")
 
-    # 2. Veriyi Çekme
+    # 2. Veriyi çekme
     query = """
     SELECT 
         EmployeeNumber, 
@@ -40,33 +40,31 @@ try:
     sql_df = pd.read_sql(query, conn)
     print("SQL verisi başarıyla çekildi.")
 
-    # Kontrol amaçlı yazdırıyoruz
+    # kontrol amaçlı yazdırıyoruz
     print(sql_df.head())
     print(sql_df.columns)
     print(sql_df.shape)
 
 finally:
-    # İşimiz bittiğinde bağlantıyı güvenli bir şekilde kapatıyoruz
+    # işimiz bittiğinde bağlantıyı güvenli bir şekilde kapatıyoruz
     conn.close()
 
 
 # Burada ana veriyi csv üzerinden çekiyoruz, çünkü chi-square testini uygularken hem sql'den çektiğimiz 3 kategorik değişkeni hem de csv'deki diğer kategorik değişkenleri kullanacağız.
 # df = pd.read_csv(r"C:\Users\cakir\OneDrive\Desktop\ik_veriler.csv")
-from pathlib import Path
 
-# Proje yapısına uygun dinamik yol
+# Proje yapısına uygun dinamik yol 
+from pathlib import Path
 current_dir = Path(__file__).resolve().parent
 csv_path = current_dir.parent / "DATA" / "WA_Fn-UseC_-HR-Employee-Attrition.csv"
-
 df = pd.read_csv(csv_path)
 print(f"CSV başarıyla yüklendi: {csv_path}")
-
-
 
 
 # Attrition için güvenli dönüşüm
 if df["Attrition"].dtype == 'object':
     df["Attrition"] = df["Attrition"].map({"Yes": 1, "No": 0})
+
 
 # SQL'den çektiğimiz yeni kategorik değişkenleri ana veri setine birleştiriyoruz.
 # EmployeeNumber ortak anahtar olarak kullanılıyor
