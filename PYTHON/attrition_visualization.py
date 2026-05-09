@@ -14,9 +14,25 @@ import matplotlib.pyplot as plt
 
 
 # veri setimiz temiz olduğundan dolayı (kontroller yapıldı) csv dosyası üzerinden okuyarak görselleştirmeyi yaptık.
-df = pd.read_csv("../DATA/WA_Fn-UseC_-HR-Employee-Attrition.csv")
-print(df.head())  # veri setinin ilk 5 satırını kontorl etmek için
+#df = pd.read_csv("../DATA/WA_Fn-UseC_-HR-Employee-Attrition.csv")
+#print(df.head())  # veri setinin ilk 5 satırını kontorl etmek için
 
+# ----------------------
+from pathlib import Path
+
+# 1. Mevcut dosyanın (attrition_visualization.py) konumunu bul
+current_dir = Path(__file__).resolve().parent
+
+# 2. Bir üst dizine çık ve DATA/dosya_adı yolunu oluştur
+# Bu satır Mac'te / ve Windows'ta \ sorununu otomatik çözer
+csv_path = current_dir.parent / "DATA" / "WA_Fn-UseC_-HR-Employee-Attrition.csv"
+
+# 3. Veriyi oku
+df = pd.read_csv(csv_path)
+
+print(f"Dosya şuradan başarıyla yüklendi: {csv_path}")
+print(df.head())
+# ----------------------
 
 # kategorik, sayısal değişkenler için attrition oranlarını göstermek ve kod tekrarını azaltmak amacıyla fonksiyon tanımlanması
 def plot_categorical_attrition(dataframe, column, title):
@@ -39,8 +55,6 @@ def plot_categorical_attrition(dataframe, column, title):
 
     # Oran hesaplama
     df_plot["AttritionRate"] = df_plot["AttritionCount"] / df_plot["TotalCount"]
-
-    import plotly.graph_objects as go
 
     fig = go.Figure()
 
@@ -206,10 +220,13 @@ fig.show()
 # korelasyonda sayısal veya binary değişkenler üzerinden gidilir. 
 # kategorik değişken(yes/no) olduğu için korelasyon matrixinde göstermek adına burada sayısal değişkene çevirip kullanıyoruz.
 
-df["AttritionBinary"] = df["Attrition"].map({"Yes":1, "No":0})
+# Attrition için güvenli dönüşüm
+if df["Attrition"].dtype == 'object':
+    df["Attrition"] = df["Attrition"].map({"Yes": 1, "No": 0})
 
-# OverTime'da binary olduğu için sayısala çeviriyoruz.
-df["OverTime"] = df["OverTime"].map({"Yes":1, "No":0}) 
+# OverTime için güvenli dönüşüm
+if df["OverTime"].dtype == 'object':
+    df["OverTime"] = df["OverTime"].map({"Yes": 1, "No": 0})
 
 # Tüm sayısal değişkenler arasındaki ilişkileri görmek için korelasyon matrisi oluşturulmuştur.
 corr_matrix = df.select_dtypes(include='number').corr()

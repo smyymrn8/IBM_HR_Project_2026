@@ -2,42 +2,71 @@ import pandas as pd
 import numpy as np
 from scipy.stats import chi2_contingency
 from statsmodels.stats.multitest import multipletests
-import pyodbc # oluşturduğumuz 3 kategorik değişken csv dosyasında değildi, tekrar oluşturmamak için sql ortamından çekmeye karar verdik.
+import pyodbc # oluşturduğumuz 3 kategorik değişken csv dosyasında değildi, tekrar oluşturmamak için sql ortamından çekmeye karar verdik. 
+import platform
+from sqlalchemy import create_engine
 
-# SQL Server bağlantısı
-conn = pyodbc.connect(
-    "DRIVER={ODBC Driver 17 for SQL Server};"
-    "SERVER=localhost;"
-    "DATABASE=IBM_HR_DB;"
-    "Trusted_Connection=yes;"
-)
+# 1. İşletim sistemine göre bağlantı ayarlarını seç
+system_platform = platform.system()
 
-# View içinden sadece gerekli sütunları çek
-query = """
-SELECT
-    EmployeeNumber,
-    age_group,
-    income_level,
-    tenure_group
-FROM vw_HR_Feature_Engineering
-"""
+try:
+    if system_platform == "Darwin":  # MAC 
+        engine = create_engine("mssql+pymssql://sa:StrongPass123!@localhost:1433/IBM_HR_DB")
+        conn = engine.connect()
+        print("Mac/Docker üzerinden SQLAlchemy (pymssql) ile bağlanıldı.")
+        
+    else:  # WINDOWS
+        # pyodbc ve Trusted Connection kullanır
+        conn_str = (
+            "DRIVER={ODBC Driver 17 for SQL Server};"
+            "SERVER=localhost;"
+            "DATABASE=IBM_HR_DB;"
+            "Trusted_Connection=yes;"
+        )
+        conn = pyodbc.connect(conn_str)
+        print("Windows üzerinden pyodbc (Trusted Connection) ile bağlanıldı.")
 
-# SQL sonucunu DataFrame'e aldık.
-sql_df = pd.read_sql(query, conn)
+    # 2. Veriyi Çekme
+    query = """
+    SELECT 
+        EmployeeNumber, 
+        age_group, 
+        income_level, 
+        tenure_group 
+    FROM vw_HR_Feature_Engineering
+    """
+    
+    # pandas hem pyodbc objesini hem de sqlalchemy engine objesini destekler
+    sql_df = pd.read_sql(query, conn)
+    print("SQL verisi başarıyla çekildi.")
 
-# Kontrol amaçlı yazdırıyoruz..
-print(sql_df.head())
-print(sql_df.columns)
-print(sql_df.shape)
+    # Kontrol amaçlı yazdırıyoruz
+    print(sql_df.head())
+    print(sql_df.columns)
+    print(sql_df.shape)
 
-# İşimiz bittiği için bağlantıyı kapatıyoruz.
-conn.close()
+finally:
+    # İşimiz bittiğinde bağlantıyı güvenli bir şekilde kapatıyoruz
+    conn.close()
+
 
 # Burada ana veriyi csv üzerinden çekiyoruz, çünkü chi-square testini uygularken hem sql'den çektiğimiz 3 kategorik değişkeni hem de csv'deki diğer kategorik değişkenleri kullanacağız.
-df = pd.read_csv(r"C:\Users\cakir\OneDrive\Desktop\ik_veriler.csv")
+# df = pd.read_csv(r"C:\Users\cakir\OneDrive\Desktop\ik_veriler.csv")
+from pathlib import Path
 
-# attirition'ı sayısallaştır.
-df["Attrition"] = df["Attrition"].map({"Yes": 1, "No": 0})
+# Proje yapısına uygun dinamik yol
+current_dir = Path(__file__).resolve().parent
+csv_path = current_dir.parent / "DATA" / "WA_Fn-UseC_-HR-Employee-Attrition.csv"
+
+df = pd.read_csv(csv_path)
+print(f"CSV başarıyla yüklendi: {csv_path}")
+
+
+
+
+# Attrition için güvenli dönüşüm
+if df["Attrition"].dtype == 'object':
+    df["Attrition"] = df["Attrition"].map({"Yes": 1, "No": 0})
 
 # SQL'den çektiğimiz yeni kategorik değişkenleri ana veri setine birleştiriyoruz.
 # EmployeeNumber ortak anahtar olarak kullanılıyor

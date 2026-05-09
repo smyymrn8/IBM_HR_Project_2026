@@ -5,14 +5,23 @@ from statsmodels.stats.multitest import multipletests
 # ---------------------------------------------------
 # 1) VERİ SETİNİ OKU
 # ---------------------------------------------------
-df = pd.read_csv(r"C:\Users\cakir\OneDrive\Desktop\ik_veriler.csv")
+# df = pd.read_csv(r"C:\Users\cakir\OneDrive\Desktop\ik_veriler.csv")
+from pathlib import Path
 
+# Proje yapısına uygun dinamik yol
+current_dir = Path(__file__).resolve().parent
+csv_path = current_dir.parent / "DATA" / "WA_Fn-UseC_-HR-Employee-Attrition.csv"
+
+df = pd.read_csv(csv_path)
+print(f"CSV başarıyla yüklendi: {csv_path}")
 # ---------------------------------------------------
 # 2) ATTRITION DEĞİŞKENİNİ SAYISALLAŞTIR
 # Yes -> 1
 # No  -> 0
 # ---------------------------------------------------
-df["Attrition"] = df["Attrition"].map({"Yes": 1, "No": 0})
+# Attrition için güvenli dönüşüm
+if df["Attrition"].dtype == 'object':
+    df["Attrition"] = df["Attrition"].map({"Yes": 1, "No": 0})
 
 # ---------------------------------------------------
 # 3) ANALİZ EDİLECEK SAYISAL DEĞİŞKENLER
