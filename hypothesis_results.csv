@@ -24,19 +24,28 @@ H7_Involvement,Chi-Square,17.763889853832357,2.5008495549798108e-05,0.1099285168
                 Effect size (Cramer's V): 0.110 → weak association.
                 Risk pattern: category differences exist in Attrition distribution.
                 "
-H8_Companies_JobSatisfaction,Chi-Square,1.3794131159752367,0.24020114031650983,0.030632927861549725,OK,,,,0.2603180176131034,False,1,Not statistically significant → no strong evidence of relationship with Attrition.
+H8_Companies_JobSatisfaction,Chi-Square,1.3794131159752367,0.24020114031650983,0.030632927861549725,OK,,,,0.2603180176131034,False,1,"
+                Not statistically significant → no strong evidence of relationship with Attrition.
+                Interpretation: no clear association detected.
+                "
 H9_Income_Experience,Chi-Square,5.172561164842177,0.022946361193984532,0.05931904493271425,OK,,,,0.03502339340134481,True,4,"
                 Significant relationship detected.
                 Effect size (Cramer's V): 0.059 → weak association.
                 Risk pattern: category differences exist in Attrition distribution.
                 "
-H10_Tenure_JobSatisfaction,Chi-Square,1.8490175778347901,0.17389769911586736,0.03546597083067715,OK,,,,0.21012638643167306,False,1,Not statistically significant → no strong evidence of relationship with Attrition.
+H10_Tenure_JobSatisfaction,Chi-Square,1.8490175778347901,0.17389769911586736,0.03546597083067715,OK,,,,0.21012638643167306,False,1,"
+                Not statistically significant → no strong evidence of relationship with Attrition.
+                Interpretation: no clear association detected.
+                "
 H11_3var,Chi-Square,8.75473817436925,0.0030879870347016542,0.07717256118758266,OK,,,,0.006396544571881998,True,4,"
                 Significant relationship detected.
                 Effect size (Cramer's V): 0.077 → weak association.
                 Risk pattern: category differences exist in Attrition distribution.
                 "
-H12_Tenure_Companies,Chi-Square,0.0,1.0,0.0,OK,,,,1.0,False,1,Not statistically significant → no strong evidence of relationship with Attrition.
+H12_Tenure_Companies,Chi-Square,0.0,1.0,0.0,OK,,,,1.0,False,1,"
+                Not statistically significant → no strong evidence of relationship with Attrition.
+                Interpretation: no clear association detected.
+                "
 H13_Performance,Chi-Square,8.281727295351866,0.004004601608496673,0.07505883087336292,OK,,,,0.007258340415400221,True,4,"
                 Significant relationship detected.
                 Effect size (Cramer's V): 0.075 → weak association.
@@ -47,13 +56,19 @@ H14_StockOption_JobLevel,Chi-Square,20.44918955907383,6.123548091699952e-06,0.11
                 Effect size (Cramer's V): 0.118 → weak association.
                 Risk pattern: category differences exist in Attrition distribution.
                 "
-H15_Education_JobRole,Chi-Square,3.4647332877751995,0.06269061692389086,0.048548547045768914,Caution,,,,0.08263763139967431,False,0,Not statistically significant → no strong evidence of relationship with Attrition.
+H15_Education_JobRole,Chi-Square,3.4647332877751995,0.06269061692389086,0.048548547045768914,Caution,,,,0.08263763139967431,False,0,"
+                Not statistically significant → no strong evidence of relationship with Attrition.
+                Interpretation: no clear association detected.
+                "
 H16_Training_JobInvolvement,Chi-Square,8.422113942183454,0.0037068456178789926,0.07569233258639674,OK,,,,0.0071665681945660515,True,4,"
                 Significant relationship detected.
                 Effect size (Cramer's V): 0.076 → weak association.
                 Risk pattern: category differences exist in Attrition distribution.
                 "
-H17_JobHopping,Chi-Square,2.4569451366949426,0.1170061445454339,0.040882652182219564,OK,,,,0.14752948660076448,False,1,Not statistically significant → no strong evidence of relationship with Attrition.
+H17_JobHopping,Chi-Square,2.4569451366949426,0.1170061445454339,0.040882652182219564,OK,,,,0.14752948660076448,False,1,"
+                Not statistically significant → no strong evidence of relationship with Attrition.
+                Interpretation: no clear association detected.
+                "
 salary_segment_risk,Chi-Square,7.11163677827391,0.007658515036014261,0.06955464145896845,OK,,,,0.013064525649671388,True,4,"
                 Significant relationship detected.
                 Effect size (Cramer's V): 0.070 → weak association.
@@ -64,7 +79,10 @@ early_career_risk,Chi-Square,85.88658022499403,1.9055758576603257e-20,0.24171521
                 Effect size (Cramer's V): 0.242 → moderate association.
                 Risk pattern: category differences exist in Attrition distribution.
                 "
-promotion_risk,Chi-Square,1.6760224552947374,0.19545381410714074,0.03376612696375577,OK,,,,0.22672642436428328,False,1,Not statistically significant → no strong evidence of relationship with Attrition.
+promotion_risk,Chi-Square,1.6760224552947374,0.19545381410714074,0.03376612696375577,OK,,,,0.22672642436428328,False,1,"
+                Not statistically significant → no strong evidence of relationship with Attrition.
+                Interpretation: no clear association detected.
+                "
 Age,Mann-Whitney,106859.0,5.304342075341702e-11,0.2686425684670164,,32.0,36.0,Attrition=0 higher,1.922824002311367e-10,True,3,"
                 Significant difference detected.
                 Effect size (rank-biserial r): 0.269 → moderate effect.
@@ -83,15 +101,24 @@ MonthlyIncome,Mann-Whitney,100620.5,2.9508309172888725e-14,0.3113397052231017,,3
                 Direction: Attrition=0 higher.
                 Interpretation: numeric feature differs between Attrition groups.
                 "
-NumCompaniesWorked,Mann-Whitney,152929.5,0.24236505088116522,-0.04667015717556233,,1.0,2.0,Attrition=0 higher,0.2603180176131034,False,0,Not statistically significant → no strong evidence of relationship with Attrition.
-PercentSalaryHike,Mann-Whitney,140726.5,0.36551461755468617,0.03684882332207473,,14.0,14.0,Equal,0.3785687110387821,False,0,Not statistically significant → no strong evidence of relationship with Attrition.
+NumCompaniesWorked,Mann-Whitney,152929.5,0.24236505088116522,-0.04667015717556233,,1.0,2.0,Attrition=0 higher,0.2603180176131034,False,0,"
+                Not statistically significant → no strong evidence of relationship with Attrition.
+                Interpretation: no clear association detected.
+                "
+PercentSalaryHike,Mann-Whitney,140726.5,0.36551461755468617,0.03684882332207473,,14.0,14.0,Equal,0.3785687110387821,False,0,"
+                Not statistically significant → no strong evidence of relationship with Attrition.
+                Interpretation: no clear association detected.
+                "
 TotalWorkingYears,Mann-Whitney,100567.0,2.3995693647989518e-14,0.311705866450392,,7.0,10.0,Attrition=0 higher,2.1393524150344327e-13,True,5,"
                 Significant difference detected.
                 Effect size (rank-biserial r): 0.312 → strong effect.
                 Direction: Attrition=0 higher.
                 Interpretation: numeric feature differs between Attrition groups.
                 "
-TrainingTimesLastYear,Mann-Whitney,134785.5,0.0472957073041035,0.07750982988902233,,2.0,3.0,Attrition=0 higher,0.06531311961042864,False,0,Not statistically significant → no strong evidence of relationship with Attrition.
+TrainingTimesLastYear,Mann-Whitney,134785.5,0.0472957073041035,0.07750982988902233,,2.0,3.0,Attrition=0 higher,0.06531311961042864,False,0,"
+                Not statistically significant → no strong evidence of relationship with Attrition.
+                Interpretation: no clear association detected.
+                "
 YearsAtCompany,Mann-Whitney,102582.0,2.9161913699564144e-13,0.2979149342449722,,3.0,6.0,Attrition=0 higher,1.6913909945747202e-12,True,3,"
                 Significant difference detected.
                 Effect size (rank-biserial r): 0.298 → moderate effect.
@@ -104,7 +131,10 @@ YearsInCurrentRole,Mann-Whitney,105214.0,4.429559530312776e-12,0.279901170689307
                 Direction: Attrition=0 higher.
                 Interpretation: numeric feature differs between Attrition groups.
                 "
-YearsSinceLastPromotion,Mann-Whitney,134374.0,0.0411791057847264,0.08032619147836739,,1.0,1.0,Equal,0.05970970338785328,False,0,Not statistically significant → no strong evidence of relationship with Attrition.
+YearsSinceLastPromotion,Mann-Whitney,134374.0,0.0411791057847264,0.08032619147836739,,1.0,1.0,Equal,0.05970970338785328,False,0,"
+                Not statistically significant → no strong evidence of relationship with Attrition.
+                Interpretation: no clear association detected.
+                "
 YearsWithCurrManager,Mann-Whitney,106361.5,1.806754258314441e-11,0.27204752567406176,,2.0,3.0,Attrition=0 higher,7.485124784445541e-11,True,3,"
                 Significant difference detected.
                 Effect size (rank-biserial r): 0.272 → moderate effect.
