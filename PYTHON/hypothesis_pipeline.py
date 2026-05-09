@@ -367,7 +367,10 @@ def add_interpretation(df):
     def interpret(row):
 
         if row["p_adj"] >= 0.05:    # İstatistiksel olarak anlamlı olmayan sonuçlar için yorum, bu özellik ile Attrition arasında güçlü bir ilişki olduğuna dair kanıt olmadığını belirtir. Bu, bu özelliklerin Attrition ile ilişkili olmadığını veya etkisinin çok küçük olduğunu gösterebilir. 
-            return "Not statistically significant → no strong evidence of relationship with Attrition."
+            return f"""
+                Not statistically significant → no strong evidence of relationship with Attrition.
+                Interpretation: no clear association detected.
+                """
 
         effect = row.get("Effect", 0)           # Etkisi belirtilmemişse varsayılan olarak 0 alırız, bu da etkisiz bir ilişki olduğunu varsayar. Bu, yorumun devamında etkisinin gücünü değerlendirmemize yardımcı olur. 
         direction = row.get("Direction", "")    # Etki yönü belirtilmemişse boş string alırız, bu da etkisinin hangi yönde olduğunu belirtmez. Bu, yorumun devamında etkisinin yönünü değerlendirmemize yardımcı olur. 
@@ -424,13 +427,15 @@ if __name__ == "__main__":
     top10 = df.sort_values("Score", ascending=False).head(10)
 
     print("\n===== TOP 10 HYPOTHESES =====\n")
-    print(top10[["Feature","Test","p_value","p_adj","Effect","Score"]])
+    print(top10[["Feature","Test","p_value","p_adj","Effect","Score","Interpretation"]])
 
     # Save results to CSV for further analysis or reporting. This allows us to keep a record of the hypothesis testing results and easily share them with stakeholders or use them in reports. 
     df.to_csv("hypothesis_results.csv", index=False)
     top10.to_csv("top10_hypothesis_results.csv", index=False)
 
     # DEBUG BLOCK : Bu blok, oluşturulan segmentlerin ve diğer özelliklerin gerçekten veri setinde yer alıp almadığını kontrol etmek için eklenmiştir. Eğer beklenen özellikler eksikse, bu durum test sonuçlarını etkileyebilir ve bu nedenle eksik özelliklerin hangileri olduğunu görmek önemlidir.
+    # Debug kısmı, testlerin bittiğini ve hangi değişkenlerin sonuç tablosuna (muhtemelen düşük anlamlılık veya filtreleme nedeniyle) yansımadığını bize raporlamak için çalışır. Bu, hangi hipotezlerin test edildiğini ve hangi hipotezlerin eksik olduğunu görmemize yardımcı olur. 
+    # Eksik hipotezler, test sonuçlarında yer almayan özellikler olabilir ve bu durum, testlerin kapsamını ve sonuçların yorumlanmasını etkileyebilir. Bu nedenle, bu debug bloğu, test sürecinin doğruluğunu ve kapsamını kontrol etmek için önemlidir.
     print("\n=== HYPOTHESIS COVERAGE DEBUG ===")
 
     categorical, numeric = get_features()   # get_features() fonksiyonunda tanımlanan kategorik ve sayısal özellikleri ayrı ayrı alırız. Bu, hangi özelliklerin test edildiğini ve hangi özelliklerin eksik olduğunu görmemize yardımcı olur. 
