@@ -4,14 +4,22 @@ from scipy.stats import shapiro
 # ---------------------------------------------------
 # 1) VERİ SETİNİ OKU
 # ---------------------------------------------------
-df = pd.read_csv(r"C:\Users\cakir\OneDrive\Desktop\ik_veriler.csv")
+# df = pd.read_csv(r"C:\Users\cakir\OneDrive\Desktop\ik_veriler.csv")
+# Proje yapısına uygun dinamik yol 
+from pathlib import Path
+current_dir = Path(__file__).resolve().parent
+csv_path = current_dir.parent / "DATA" / "WA_Fn-UseC_-HR-Employee-Attrition.csv"
+df = pd.read_csv(csv_path)
+print(f"CSV başarıyla yüklendi: {csv_path}")
 
 # ---------------------------------------------------
 # 2) ATTRITION DEĞİŞKENİNİ SAYISALLAŞTIR
 # Yes -> 1
 # No  -> 0
 # ---------------------------------------------------
-df["Attrition"] = df["Attrition"].map({"Yes": 1, "No": 0})
+# Attrition için güvenli dönüşüm
+if df["Attrition"].dtype == 'object':
+    df["Attrition"] = df["Attrition"].map({"Yes": 1, "No": 0})
 
 # ---------------------------------------------------
 # 3) TEST EDİLECEK SAYISAL DEĞİŞKENLERİ BELİRLE
@@ -107,3 +115,4 @@ results_df["No_Group_Comment"] = results_df["Shapiro_p_No"].apply(yorumla)
 # ---------------------------------------------------
 print("\n--- SHAPIRO-WILK NORMALLİK TESTİ SONUÇLARI ---\n")
 print(results_df)
+
