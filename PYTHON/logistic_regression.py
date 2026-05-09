@@ -10,6 +10,7 @@ from sklearn.metrics import classification_report, confusion_matrix, roc_auc_sco
 import seaborn as sns
 import matplotlib.pyplot as plt
 from hypothesis_pipeline import create_segments
+from sklearn.model_selection import GridSearchCV
 
 # Uyarıları bastırmak için 
 import warnings
@@ -114,8 +115,43 @@ print(f"\nSMOTE sonrası eğitim seti sınıf dağılımı: \n{pd.Series(y_train
 # max_iter=2000, modelin maksimum iterasyon sayısını artırarak daha karmaşık ilişkileri öğrenmesine olanak tanır. 
 # solver='liblinear', küçük veri setleri ve L1 regularizasyonu için uygun bir algoritmadır. 
 # C=0.1, regularizasyon gücünü artırarak modelin aşırı öğrenmesini (overfitting) önlemeye yardımcı olur.
-log_model_1 = LogisticRegression(max_iter=2000, solver='liblinear', C=0.1, random_state=42)  
-log_model_1.fit(X_train_res, y_train_res)
+# GridSearchCV kullanılmayacaksa alttaki iki satır kodu kullan: 
+# log_model_1 = LogisticRegression(max_iter=2000, solver='liblinear', C=0.1, random_state=42)  
+# log_model_1.fit(X_train_res, y_train_res)
+
+
+# ===========================================================================================================
+# 1. Denenecek parametreleri (grids) tanımlıyoruz
+param_grid = {
+    'C': [0.5, 0.8, 1, 1.2, 1.5, 2], # Regülarizasyon gücü
+    'penalty': ['l1', 'l2'],        # Hata payı tipi (L1 bazı gereksiz kolonları sıfırlar)
+    'solver': ['liblinear']         # L1 ve L2'yi destekleyen stabil çözücü
+}
+
+print("\n--- MODEL 1: GridSearchCV Optimizasyonu Başlatılıyor... ---")
+
+# 2. GridSearchCV nesnesini oluşturuyoruz
+# cv=5: Veriyi 5 farklı şekilde bölüp dene
+# scoring='roc_auc': En iyi modeli ROC-AUC skoruna göre seç
+grid_search = GridSearchCV(
+    LogisticRegression(max_iter=2000, random_state=42), 
+    param_grid, 
+    cv=5, 
+    scoring='roc_auc',
+    verbose=1 # İşlemi takip edebilmek için
+)
+
+# 3. En iyi parametreleri bulmak için eğitimi başlatıyoruz
+grid_search.fit(X_train_res, y_train_res)
+
+# 4. En iyi sonuçları ve parametreleri raporluyoruz
+print(f"En İyi Parametreler: {grid_search.best_params_}")
+print(f"En İyi CV ROC-AUC Skoru: {grid_search.best_score_:.4f}")
+
+# 5. Artık 'log_model_1' yerine en iyi modeli (best_estimator_) kullanabiliriz
+log_model_1 = grid_search.best_estimator_
+# ===========================================================================================================
+
 
 # Model tahminleri (test seti üzerinde)
 y_pred_1 = log_model_1.predict(X_test_scaled)
@@ -162,8 +198,28 @@ X_test_top10_scaled = scaler_2.transform(X_test_top10)
 X_train_res_2, y_train_res_2 = smote.fit_resample(X_train_top10_scaled, y_train)
 
 # Model 2 eğitimi 
-log_model_2 = LogisticRegression(max_iter=2000, solver='liblinear', C=0.1, random_state=42)
-log_model_2.fit(X_train_res_2, y_train_res_2)
+# GridSearchCV kullanılmayacaksa alttaki iki satır kodu kullan: 
+# log_model_2 = LogisticRegression(max_iter=2000, solver='liblinear', C=0.1, random_state=42)
+# log_model_2.fit(X_train_res_2, y_train_res_2)
+
+
+# ===========================================================================================================
+print("\n--- MODEL 2: GridSearchCV Optimizasyonu Başlatılıyor... ---")
+
+grid_search_2 = GridSearchCV(
+    LogisticRegression(max_iter=2000, random_state=42), 
+    param_grid, # Model 1'de kullandığımız hassaslaştırılmış grid
+    cv=5, 
+    scoring='roc_auc'
+)
+
+grid_search_2.fit(X_train_res_2, y_train_res_2)
+
+print(f"Model 2 En İyi Parametreler: {grid_search_2.best_params_}")
+print(f"En İyi CV ROC-AUC Skoru: {grid_search_2.best_score_:.4f}")
+log_model_2 = grid_search_2.best_estimator_
+# ===========================================================================================================
+
 
 # Tahminler
 y_pred_2 = log_model_2.predict(X_test_top10_scaled)
@@ -214,11 +270,31 @@ X_test_h3_scaled = scaler_3.transform(X_test_h3)
 smote_h3 = SMOTE(random_state=42)
 X_train_res_h3, y_train_res_h3 = smote_h3.fit_resample(X_train_h3_scaled, y_train_h3)
 
-# Model eğitimi
-log_model_3 = LogisticRegression(max_iter=2000, solver='liblinear', C=0.1, random_state=42)
-log_model_3.fit(X_train_res_h3, y_train_res_h3)
+# Model 3 eğitimi
+# GridSearchCV kullanılmayacaksa alttaki iki satır kodu kullan: 
+# log_model_3 = LogisticRegression(max_iter=2000, solver='liblinear', C=0.1, random_state=42)
+# log_model_3.fit(X_train_res_h3, y_train_res_h3)
 
-# Tahmin ve performans raporu
+
+# ===========================================================================================================
+print("\n--- MODEL 3: GridSearchCV Optimizasyonu Başlatılıyor... ---")
+
+grid_search_3 = GridSearchCV(
+    LogisticRegression(max_iter=2000, random_state=42), 
+    param_grid, 
+    cv=5, 
+    scoring='roc_auc'
+)
+
+grid_search_3.fit(X_train_res_h3, y_train_res_h3)
+
+print(f"Model 3 En İyi Parametreler: {grid_search_3.best_params_}")
+print(f"En İyi CV ROC-AUC Skoru: {grid_search_3.best_score_:.4f}")
+log_model_3 = grid_search_3.best_estimator_
+# ===========================================================================================================
+
+
+# Tahminler
 y_pred_3 = log_model_3.predict(X_test_h3_scaled)
 y_prob_3 = log_model_3.predict_proba(X_test_h3_scaled)[:, 1]
 
@@ -246,5 +322,6 @@ plt.title('Hipotezlerin İşten Ayrılma Üzerindeki Etki Gücü')
 plt.xlabel('Katsayı Değeri (Pozitif = Ayrılma Riskini Artırır)')
 plt.ylabel('Hipotezler')
 plt.axvline(0, color='red', linestyle='--') # 0 çizgisini ekleyelim
+plt.tight_layout() # Tüm elemanların pencereye sığmasını sağlar
 plt.show()
 
