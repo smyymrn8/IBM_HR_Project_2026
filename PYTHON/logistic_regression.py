@@ -187,8 +187,8 @@ print(selected_cols)        # kontrol edelim
 X_train_top10 = X_train[selected_cols]
 X_test_top10 = X_test[selected_cols]
 
-print(f"\nX_train_top10 satır sayısı: {X_train_top10.shape[0]}")
-print(f"y_train satır sayısı: {len(y_train)}")
+print(f"\nX_train_top10 sütun sayısı: {X_train_top10.shape[1]}")
+print(f"y_train sütun sayısı: {len(y_train)}")
 
 # Ölçeklendirme ve SMOTE (model 2 için) 
 scaler_2 = StandardScaler()
