@@ -51,7 +51,6 @@ finally:
 
 
 # Burada ana veriyi csv üzerinden çekiyoruz, çünkü chi-square testini uygularken hem sql'den çektiğimiz 3 kategorik değişkeni hem de csv'deki diğer kategorik değişkenleri kullanacağız.
-# df = pd.read_csv(r"C:\Users\cakir\OneDrive\Desktop\ik_veriler.csv")
 
 # Proje yapısına uygun dinamik yol 
 from pathlib import Path

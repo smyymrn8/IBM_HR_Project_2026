@@ -4,7 +4,6 @@ from scipy.stats import shapiro
 # ---------------------------------------------------
 # 1) VERİ SETİNİ OKU
 # ---------------------------------------------------
-# df = pd.read_csv(r"C:\Users\cakir\OneDrive\Desktop\ik_veriler.csv")
 # Proje yapısına uygun dinamik yol 
 from pathlib import Path
 current_dir = Path(__file__).resolve().parent

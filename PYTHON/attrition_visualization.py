@@ -14,9 +14,6 @@ import matplotlib.pyplot as plt
 
 
 # veri setimiz temiz olduğundan dolayı (kontroller yapıldı) csv dosyası üzerinden okuyarak görselleştirmeyi yaptık.
-#df = pd.read_csv("../DATA/WA_Fn-UseC_-HR-Employee-Attrition.csv")
-#print(df.head())  # veri setinin ilk 5 satırını kontorl etmek için
-
 # Proje yapısına uygun dinamik yol ------------------------------------------------------
 from pathlib import Path
 

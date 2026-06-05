@@ -5,7 +5,6 @@ from statsmodels.stats.multitest import multipletests
 # ---------------------------------------------------
 # 1) VERİ SETİNİ OKU
 # ---------------------------------------------------
-# df = pd.read_csv(r"C:\Users\cakir\OneDrive\Desktop\ik_veriler.csv")
 from pathlib import Path
 
 # Proje yapısına uygun dinamik yol
@@ -143,17 +142,6 @@ print(
         ]
     ]
 )
-
-# ---------------------------------------------------
-# 10) CSV OLARAK KAYDET
-# ---------------------------------------------------
-# results_df.to_csv(
-#     r"C:\Users\cakir\OneDrive\Desktop\mann_whitney_results.csv",
-#     index=False,
-#     encoding="utf-8-sig"
-# )
-
-# print("\nSonuçlar masaüstüne 'mann_whitney_results.csv' olarak kaydedildi.")
 
 # ---------------------------------------------------
 # 10) CSV OLARAK KAYDET (DİNAMİK YOL)
